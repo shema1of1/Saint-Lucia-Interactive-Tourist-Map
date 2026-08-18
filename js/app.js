@@ -1,0 +1,20 @@
+const map=L.map('map',{zoomControl:true,minZoom:8,maxZoom:19}).setView([13.99,-60.98],11);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);const saintLuciaBounds=[[13.70,-61.10],[14.30,-60.75]];map.setMaxBounds(saintLuciaBounds);
+const busLayer=L.layerGroup().addTo(map);const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGroup(),['Getting Around']:L.layerGroup(),Lodging:L.layerGroup(),['Police Stations']:L.layerGroup()};
+Object.values(categoryLayers).forEach(l=>l.addTo(map));
+const categoryColors={Beauty:'#d56a9c',Events:'#7b61b7',Food:'#e58a36','Getting Around':'#4d91c6',Lodging:'#5c9b72','Police Stations':'#4c5964'};
+function markerIcon(category){return L.divIcon({className:'custom-marker',html:`<div style="width:28px;height:28px;border-radius:50%;background:${categoryColors[category]};border:3px solid white;box-shadow:0 2px 7px rgba(0,0,0,.35);display:grid;place-items:center;color:white;font-size:11px;font-weight:800">${category[0]}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-14]})}
+function addPOI(category,name,lat,lng,description=''){const m=L.marker([lat,lng],{icon:markerIcon(category)}).bindPopup(`<div class="poi-popup"><h3>${name}</h3><p><b>${category}</b></p>${description?`<p>${description}</p>`:''}</div>`);m.addTo(categoryLayers[category]);return m}
+// Starter examples: these are intentionally easy to replace with your own approved locations.
+addPOI('Getting Around','Castries Bus Terminal',14.0107,-60.9897,'Central starting point for the bus network.');
+addPOI('Police Stations','Castries Police Station',14.0105,-60.9890,'Police station location.');
+
+function routeStyle(feature){const n=feature?.properties?.Name||'';const colors={'1A':'#dcbf1b','1B':'#dcbf1b','1D':'#dcbf1b','1E':'#dcbf1b','1F':'#dcbf1b','2A':'#08b584','2B':'#08b584','2C':'#08b584','2H':'#08b584','3A':'#ff601a','3B':'#ff601a','3C':'#ff601a','3D':'#ff601a','3E':'#ff601a','3F':'#ff601a'};return{color:colors[n]||'#2776b8',weight:4,opacity:.9}}
+function addRoutes(data){if(!data?.features)return;L.geoJSON(data,{style:routeStyle,onEachFeature:(f,l)=>{const n=f.properties?.Name||'Bus route';const d=f.properties?.description||'';l.bindPopup(`<div class="route-popup"><h3>Bus Route ${n}</h3><p>${d}</p></div>`);l.bindTooltip(n,{sticky:true,className:'route-label'});}}).addTo(busLayer)}
+// Compatible with the original qgis2web route data if copied into data/castries_busroute_1.js.
+if(typeof json_castries_busroute_1!=='undefined')addRoutes(json_castries_busroute_1);
+
+document.getElementById('busBtn').addEventListener('click',e=>{if(map.hasLayer(busLayer)){map.removeLayer(busLayer);e.currentTarget.setAttribute('aria-pressed','false')}else{busLayer.addTo(map);e.currentTarget.setAttribute('aria-pressed','true')}});
+document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
+document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
+document.getElementById('locateBtn').addEventListener('click',()=>map.locate({setView:true,maxZoom:16,enableHighAccuracy:true}));
+map.on('locationerror',()=>alert('Your location could not be determined. Please allow location access in your browser.'));
