@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Saint Lucia Interactive Tourist Map">
+  <title>Saint Lucia Interactive Tourist Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <div class="eyebrow">SAINT LUCIA</div>
+      <h1>Interactive Tourist Map</h1>
+    </div>
+    <button id="locateBtn" class="header-button" type="button">◎ My location</button>
+  </header>
+
+  <main id="map" aria-label="Saint Lucia interactive map"></main>
+
+  <aside class="map-key" aria-label="Map key">
+    <div class="key-title">Map Key</div>
+    <button class="key-item" data-category="Beauty"><span class="key-thumb beauty">B</span><span>Beauty</span></button>
+    <button class="key-item" data-category="Events"><span class="key-thumb events">E</span><span>Events</span></button>
+    <button class="key-item" data-category="Food"><span class="key-thumb food">F</span><span>Food</span></button>
+    <button class="key-item" data-category="Getting Around"><span class="key-thumb transport">G</span><span>Getting Around</span></button>
+    <button class="key-item" data-category="Lodging"><span class="key-thumb lodging">L</span><span>Lodging</span></button>
+    <button class="key-item" data-category="Police Stations"><span class="key-thumb police">P</span><span>Police Stations</span></button>
+  </aside>
+
+  <div class="map-controls">
+    <button id="resetBtn" type="button">⌂ Saint Lucia</button>
+    <button id="busBtn" type="button" aria-pressed="true">🚌 Bus routes</button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
