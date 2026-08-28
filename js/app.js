@@ -13,6 +13,7 @@ const original360Icons={
   Food:'assets/icons/restaurant.png',
   'Getting Around':'assets/icons/transport-hub.png',
   Lodging:null,
+  Park:'assets/icons/park.png'
   'Police Stations':'assets/icons/police.png'
 };
 
