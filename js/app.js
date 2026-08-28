@@ -3,7 +3,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribu
 const saintLuciaBounds=[[13.70,-61.10],[14.30,-60.75]];map.setMaxBounds(saintLuciaBounds);
 
 // 360MAP original presentation layer. Bus route lines remain intentionally paused.
-const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGroup(),['Getting Around']:L.layerGroup(),Lodging:Park:L.layerGroup(),['Police Stations']:L.layerGroup()};
+const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGroup(),['Getting Around']:L.layerGroup(),Lodging:L.layerGroup(),
+Park:L.layerGroup(),['Police Stations']:L.layerGroup()};
 Object.values(categoryLayers).forEach(l=>l.addTo(map));
 const categoryColors={Beauty:'#d56a9c',Events:'#7b61b7',Food:'#e58a36','Getting Around':'#4d91c6',Lodging:'#5c9b72','Police Stations':'#4c5964'};
 
