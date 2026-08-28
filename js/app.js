@@ -46,6 +46,12 @@ if(typeof json_bus_stop_2!=='undefined'){
  });
 }
 
+// Additional independently verified 5C stand on Mary Ann Street toward Leslie Land Road.
+// OpenStreetMap node 5231254567: Sunbuilt/Cedars/Cacao busstop.
+L.marker([14.00774,-60.98717],{icon:busStationIcon('5C'),title:'Route 5C — Cacao / Sunbuilt / Cedars'})
+ .bindPopup('<div class="poi-popup"><h3>Route 5C — Cacao / Sunbuilt / Cedars</h3><p><b>Castries Station:</b> Mary Ann St. toward Leslie Land Rd.</p></div>')
+ .addTo(busStationLayer);
+
 // Only independently sourced/approved POIs should be added below.
 document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
 document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
