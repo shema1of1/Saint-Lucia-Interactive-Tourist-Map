@@ -67,6 +67,20 @@ addPOI(
   'Public square in central Castries'
 );
 addPOI( 'Park', 'Serenity Park', 14.016014, -60.991191, 'Public square in Castries');
+// Route 5D — practice route
+const route5D = L.polyline(
+  [
+    [14.007635, -60.987993],
+    [14.007773, -60.987873],
+    [14.006708, -60.988197],
+    [14.002003, -60.983455]
+  ],
+  {
+    color: '#6d2bb8',
+    weight: 6,
+    opacity: 0.9
+  }
+).addTo(map);
 document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
 document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
 document.getElementById('locateBtn').addEventListener('click',()=>map.locate({setView:true,maxZoom:16,enableHighAccuracy:true}));
