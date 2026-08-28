@@ -3,7 +3,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribu
 const saintLuciaBounds=[[13.70,-61.10],[14.30,-60.75]];map.setMaxBounds(saintLuciaBounds);
 
 // 360MAP original presentation layer. Bus route lines remain intentionally paused.
-const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGroup(),['Getting Around']:L.layerGroup(),Lodging:L.layerGroup(),['Police Stations']:L.layerGroup()};
+const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGroup(),['Getting Around']:L.layerGroup(),Lodging:Park:L.layerGroup(),['Police Stations']:L.layerGroup()};
 Object.values(categoryLayers).forEach(l=>l.addTo(map));
 const categoryColors={Beauty:'#d56a9c',Events:'#7b61b7',Food:'#e58a36','Getting Around':'#4d91c6',Lodging:'#5c9b72','Police Stations':'#4c5964'};
 
@@ -13,7 +13,7 @@ const original360Icons={
   Food:'assets/icons/restaurant.png',
   'Getting Around':'assets/icons/transport-hub.png',
   Lodging:null,
-  Park:'assets/icons/park.png'
+  Park:'assets/icons/park.png',
   'Police Stations':'assets/icons/police.png'
 };
 
@@ -58,6 +58,13 @@ L.marker([14.00774,-60.98717],{icon:busStationIcon('5'),title:'Route 5 — Cedar
  .addTo(busStationLayer);
 
 // Only independently sourced/approved POIs should be added below.
+addPOI(
+  'Park',
+  'Derek Walcott Square',
+  14.008837,
+  -60.990788,
+  'Public square in central Castries'
+);
 document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
 document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
 document.getElementById('locateBtn').addEventListener('click',()=>map.locate({setView:true,maxZoom:16,enableHighAccuracy:true}));
