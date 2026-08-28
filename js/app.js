@@ -7,14 +7,14 @@ const categoryLayers={Beauty:L.layerGroup(),Events:L.layerGroup(),Food:L.layerGr
 Object.values(categoryLayers).forEach(l=>l.addTo(map));
 const categoryColors={Beauty:'#d56a9c',Events:'#7b61b7',Food:'#e58a36','Getting Around':'#4d91c6',Lodging:'#5c9b72','Police Stations':'#4c5964'};
 
-// Uploaded 360MAP artwork. These paths use the filenames currently stored in assets/icons/.
+// Approved 360MAP artwork with descriptive repository filenames.
 const original360Icons={
-  Beauty:'assets/icons/IMG_0294.png',
-  Events:'assets/icons/IMG_0292.png',
-  Food:'assets/icons/IMG_0290.png',
-  'Getting Around':'assets/icons/IMG_0286.png',
-  Lodging:'assets/icons/IMG_0287.png',
-  'Police Stations':'assets/icons/IMG_0300.png'
+  Beauty:'assets/icons/beauty-barber.png',
+  Events:'assets/icons/events.png',
+  Food:'assets/icons/restaurant.png',
+  'Getting Around':'assets/icons/transport-hub.png',
+  Lodging:null,
+  'Police Stations':'assets/icons/police.png'
 };
 
 function markerIcon(category){
