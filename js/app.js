@@ -81,6 +81,15 @@ const route5D = L.polyline(
     opacity: 0.9
   }
 ).addTo(map);
+// Route 5  
+const route5 = L.polyline(
+  [
+[14.007723, -60.987151],
+[14.007348, -60.986910],
+[14.006724, -60.985601],
+[14.006365, -60.985091], ], 
+  { 
+    color: '#6d2bb8', weight: 6, opacity: 0.9 } ).addTo(map);
 document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
 document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
 document.getElementById('locateBtn').addEventListener('click',()=>map.locate({setView:true,maxZoom:16,enableHighAccuracy:true}));
