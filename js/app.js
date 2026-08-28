@@ -66,6 +66,7 @@ addPOI(
   -60.990788,
   'Public square in central Castries'
 );
+addPOI( 'Park', 'Serenity Park', 14.016014, -60.991191, 'Public square in Castries'
 document.querySelectorAll('.key-item').forEach(btn=>btn.addEventListener('click',()=>{const c=btn.dataset.category;const layer=categoryLayers[c];if(map.hasLayer(layer)){map.removeLayer(layer);btn.classList.remove('active')}else{layer.addTo(map);btn.classList.add('active')}}));
 document.getElementById('resetBtn').addEventListener('click',()=>map.fitBounds(saintLuciaBounds));
 document.getElementById('locateBtn').addEventListener('click',()=>map.locate({setView:true,maxZoom:16,enableHighAccuracy:true}));
