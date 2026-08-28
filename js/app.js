@@ -24,12 +24,12 @@ function markerIcon(category){
 function addPOI(category,name,lat,lng,description=''){return L.marker([lat,lng],{icon:markerIcon(category)}).bindPopup(`<div class="poi-popup"><h3>${name}</h3><p><b>${category}</b></p>${description?`<p>${description}</p>`:''}</div>`).addTo(categoryLayers[category]);}
 
 // Castries bus-station labels transcribed from Sherma's route/station table.
-// Coordinates come from the project's government bus-stop point dataset.
+// Coordinates come from the project's government bus-stop point dataset, with user-verified corrections below.
 const stationDetails={
  '1A':['Gros Islet','Jean Baptiste St.'],'1B':['Baboneau','Castries Market'],'1D':['Gran Riviere','Castries Market'],'1E':['Monchy','Jean Baptiste St.'],'1F':['Bisse','Castries Market'],
  '2A':['Bexon/Marc','Jean Baptiste St. / Jeremie St.'],'2B':['Dennery Valley','Micoud St / Bridge St'],'2C':['Dennery Village','Mongiraud St / Micoud St'],'2H':['Vieux Fort','Hospital Rd'],
  '3A':['La Croix','Peynier St / St. Louis'],'3B':['JacMel','Victoria / Chisel St'],'3C':['Millet','Mongiraud St / Brazil St'],'3D':['Anse La Raye','Brazil / Bridge'],'3E':['Canaries','Castries Market'],'3F':['Soufriere','Jeremie St Plaza'],
- '5A':['Morne Du Don','Jeremie St / Chaussee'],'5B':['Rockhall / Arundel Hill','Coral / Highest'],'5C':['Fond Assau','High St'],'5D':['Marchand / Forestiere / Guesneau','Chisel St / Maryam'],'5E':['La Clery','Chisel / Brazil St'],'5F':['Morne','St. Louis and High St']
+ '5A':['Morne Du Don','Jeremie St / Chaussee'],'5B':['Rockhall / Arundel Hill','Coral / Highest'],'5C':['Fond Assau','Entrepot Bus Stop'],'5D':['Marchand / Forestiere / Guesneau','Chisel St / Maryam'],'5E':['La Clery','Chisel / Brazil St'],'5F':['Morne','St. Louis and High St']
 };
 const busStationLayer=L.layerGroup().addTo(map);
 const routeColors={'1':'#1677d2','2':'#16834a','3':'#f28b12','5':'#6d2bb8'};
@@ -38,7 +38,7 @@ if(typeof json_bus_stop_2!=='undefined'){
  json_bus_stop_2.features.forEach(feature=>{
   const route=feature.properties.ID;
   const info=stationDetails[route];
-  if(!info)return;
+  if(!info || route==='5C')return;
   const [lng,lat]=feature.geometry.coordinates;
   L.marker([lat,lng],{icon:busStationIcon(route),title:`Route ${route} — ${info[0]}`})
    .bindPopup(`<div class="poi-popup"><h3>Route ${route} — ${info[0]}</h3><p><b>Castries Station:</b> ${info[1]}</p></div>`)
@@ -46,10 +46,14 @@ if(typeof json_bus_stop_2!=='undefined'){
  });
 }
 
-// Additional independently verified 5C stand on Mary Ann Street toward Leslie Land Road.
-// OpenStreetMap node 5231254567: Sunbuilt/Cedars/Cacao busstop.
-L.marker([14.00774,-60.98717],{icon:busStationIcon('5C'),title:'Route 5C — Cacao / Sunbuilt / Cedars'})
- .bindPopup('<div class="poi-popup"><h3>Route 5C — Cacao / Sunbuilt / Cedars</h3><p><b>Castries Station:</b> Mary Ann St. toward Leslie Land Rd.</p></div>')
+// User-verified downtown Castries placement: 5C at Entrepot Bus Stop.
+L.marker([14.00824,-60.98795],{icon:busStationIcon('5C'),title:'Route 5C — Fond Assau'})
+ .bindPopup('<div class="poi-popup"><h3>Route 5C — Fond Assau</h3><p><b>Castries Station:</b> Entrepot Bus Stop</p></div>')
+ .addTo(busStationLayer);
+
+// User-verified Route 5 stand toward Leslie Land Road.
+L.marker([14.00774,-60.98717],{icon:busStationIcon('5'),title:'Route 5 — Cedars / Ravine Chabot'})
+ .bindPopup('<div class="poi-popup"><h3>Route 5 — Cedars / Ravine Chabot</h3><p><b>Castries Station:</b> toward Leslie Land Rd.</p></div>')
  .addTo(busStationLayer);
 
 // Only independently sourced/approved POIs should be added below.
